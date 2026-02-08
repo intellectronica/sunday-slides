@@ -1,0 +1,191 @@
+.slidev-layout {
+  --uno: px-12 py-8 text-[1.1rem];
+  background-color: var(--slide-bg, #2BD3EC);
+  color: #000000;
+  font-family: 'Geist', sans-serif;
+  /* CRITICAL: Use flexbox to allow grid to fill remaining space after title.
+     MUST use 100% not 100vh - Slidev uses a 552px internal canvas that gets scaled,
+     so vh units reference the wrong coordinate system. */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Slide title - above the grid, spans full width */
+.slide-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #000000;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: #000000;
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 2rem; /* 1rem + 1em extra */
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  opacity: 0.85;
+}
+
+/* Bullet lists - ensure disc markers and proper indentation */
+ul {
+  list-style-type: disc !important;
+  padding-left: 0;
+  margin-left: 1.5rem; /* Indent so bullet aligns below title */
+}
+
+/* First level list items - larger font and spacing */
+ul > li {
+  font-size: 1.265rem; /* 15% bigger than base 1.1rem */
+  margin-bottom: 1em; /* 1em margin after first level items */
+}
+
+ul ul {
+  list-style-type: circle !important;
+  margin-top: 0.25rem;
+  padding-left: 1.5rem;
+  margin-left: 0;
+}
+
+/* Nested list items - back to normal size */
+ul ul li {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+ul ul ul {
+  list-style-type: square !important;
+  padding-left: 1.5rem;
+}
+
+/* Numbered lists with proper indentation */
+ol {
+  list-style-type: decimal !important;
+  padding-left: 0;
+  margin-left: 1.5rem; /* Indent so number aligns below title */
+}
+
+/* First level list items - larger font and spacing */
+ol > li {
+  font-size: 1.265rem; /* 15% bigger than base 1.1rem */
+  margin-bottom: 1em; /* 1em margin after first level items */
+}
+
+ol ol {
+  list-style-type: lower-alpha !important;
+  margin-top: 0.25rem;
+  padding-left: 1.5rem;
+  margin-left: 0;
+}
+
+/* Nested list items - back to normal size */
+ol ol li {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+ol ol ol {
+  list-style-type: lower-roman !important;
+  padding-left: 1.5rem;
+}
+
+/* Mixed nesting - ul inside ol and vice versa */
+ol ul, ul ol {
+  padding-left: 1.5rem;
+  margin-top: 0.25rem;
+}
+
+li {
+  margin-bottom: 0.4rem;
+  line-height: 1.4;
+  display: list-item !important;
+}
+
+li::marker {
+  color: #000000;
+}
+
+/* Logo positioning */
+.slide-logo {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  height: 24px;
+  width: auto;
+}
+
+/* Two-column layout container */
+.slide-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  margin-top: 0;
+  /* CRITICAL: flex: 1 fills remaining space after title; min-height: 0 allows shrinking */
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Text column */
+.slide-text-col {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* CRITICAL: min-height: 0 allows grid items to shrink below content size */
+  min-height: 0;
+}
+
+/* Image column - right aligned, height-constrained */
+.slide-image-col {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /* CRITICAL: min-height: 0 allows flex/grid items to shrink below content size */
+  min-height: 0;
+  min-width: 0;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.slide-image-col img {
+  /* CRITICAL: Slidev uses a fixed 980x552 internal canvas that gets CSS-scaled to viewport.
+     The image max-height must be specified in internal canvas pixels (not vh/vw).
+     Internal canvas: 552px height
+     - Layout padding: 32px (top) + 32px (bottom) = 64px
+     - Title area: 48px margin + 43px height + 16px margin = 107px
+     - Available for grid: 552 - 64 - 107 = 381px
+     Using 380px provides the maximum usable height with a small safety margin. */
+  max-height: 380px;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Inline code - same background as slide, just monospace font */
+:not(pre) > code {
+  background-color: transparent !important;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.9em;
+}
